@@ -1,4 +1,3 @@
-import pytest
 from usly import Lexer, Parser
 
 class CalcLexer(Lexer):
@@ -55,7 +54,7 @@ class CalcParser(Parser):
 
     @_('expr { COMMA expr }')
     def arglist(self, p):
-        return [p.expr0, *p.expr1]
+        return [p.expr0, ] + list(p.expr1)
 
     @_('expr')
     def statement(self, p):

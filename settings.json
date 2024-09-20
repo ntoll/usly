@@ -1,0 +1,13 @@
+{
+    "files": {
+        "https://raw.githubusercontent.com/ntoll/upytest/1.0.7/upytest.py": "",
+        "./tests/test_ebnf.py": "tests/test_ebnf.py",
+        "./tests/test_lex.py": "tests/test_lex.py",
+        "./tests/test_parser.py": "tests/test_parser.py",
+        "./src/usly/__init__.py": "usly/__init__.py",
+        "./src/usly/ast.py": "usly/ast.py",
+        "./src/usly/docparse.py": "usly/docparse.py",
+        "./src/usly/lex.py": "usly/lex.py",
+        "./src/usly/yacc.py": "usly/yacc.py"
+    }
+}

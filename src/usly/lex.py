@@ -149,7 +149,7 @@ class LexerMeta(type):
         d = LexerMetaDict()
 
         def _(pattern, *extra):
-            patterns = [pattern, *extra]
+            patterns = [pattern, ] + list(extra)
             def decorate(func):
                 pattern = '|'.join(f'({pat})' for pat in patterns )
                 if hasattr(func, 'pattern'):

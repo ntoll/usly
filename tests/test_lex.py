@@ -1,4 +1,3 @@
-import pytest
 from usly import Lexer
 
 class CalcLexer(Lexer):
