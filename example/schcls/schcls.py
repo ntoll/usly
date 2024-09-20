@@ -2,8 +2,8 @@
 #
 # Proof of concept--not complete
 
-from sly.docparse import DocParseMeta
-from sly import Lexer, Parser
+from usly.docparse import DocParseMeta
+from usly import Lexer, Parser
 
 class SchLexer(Lexer):
     tokens   = { NUMBER, NAME, DEFINE, SET }

@@ -47,7 +47,7 @@
 import sys
 sys.path.append('../..')
 
-from sly import Lexer, Parser
+from usly import Lexer, Parser
 import wasm
 
 class ExprLexer(Lexer):

@@ -1,5 +1,5 @@
 import pytest
-from sly import Lexer, Parser
+from usly import Lexer, Parser
 
 class CalcLexer(Lexer):
     # Set of token names.   This is always required

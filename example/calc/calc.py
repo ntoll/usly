@@ -5,7 +5,7 @@
 import sys
 sys.path.insert(0, '../..')
 
-from sly import Lexer, Parser
+from usly import Lexer, Parser
 
 class CalcLexer(Lexer):
     tokens = { NAME, NUMBER, PLUS, TIMES, MINUS, DIVIDE, ASSIGN, LPAREN, RPAREN }
