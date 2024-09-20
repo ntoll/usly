@@ -33,7 +33,7 @@
 
 import sys
 import inspect
-from collections import OrderedDict, defaultdict, Counter
+from collections import OrderedDict, defaultdict
 
 __all__        = [ 'Parser' ]
 
@@ -1801,13 +1801,25 @@ class ParserMetaDict(dict):
             return super().__getitem__(key)
 
 def _decorator(rule, *extra):
-     rules = [rule, *extra]
+     rules = [rule, ] + list(extra)
      def decorate(func):
-         func.rules = [ *getattr(func, 'rules', []), *rules[::-1] ]
+         func.rules = getattr(func, 'rules', []) + rules[::-1]
          return func
      return decorate
 
-class ParserMeta(type):
+
+class Parser():
+    # Automatic tracking of position information
+    track_positions = True
+    
+    # Logging object where debugging/diagnostic messages are sent
+    log = SlyLogger(sys.stderr)     
+
+    # Debugging filename where parsetab.out data can be written
+    debugfile = None
+
+    # COPIED FROM METACLASS
+
     @classmethod
     def __prepare__(meta, *args, **kwargs):
         d = ParserMetaDict()
@@ -1820,15 +1832,7 @@ class ParserMeta(type):
         cls._build(list(attributes.items()))
         return cls
 
-class Parser(metaclass=ParserMeta):
-    # Automatic tracking of position information
-    track_positions = True
-    
-    # Logging object where debugging/diagnostic messages are sent
-    log = SlyLogger(sys.stderr)     
-
-    # Debugging filename where parsetab.out data can be written
-    debugfile = None
+    # END COPIED FROM METACLASS
 
     @classmethod
     def __validate_tokens(cls):
@@ -2136,7 +2140,7 @@ class Parser(metaclass=ParserMeta):
                     sym.type = pname       
                     value = p.func(self, pslice)
                     if value is pslice:
-                        value = (pname, *(s.value for s in pslice._slice))
+                        value = (pname, ) + (s.value for s in pslice._slice)
 
                     sym.value = value
                         

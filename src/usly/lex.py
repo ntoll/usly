@@ -139,11 +139,29 @@ class LexerMetaDict(dict):
             return TokenStr(key, key, self.remap)
         else:
             return super().__getitem__(key)
+        
 
-class LexerMeta(type):
-    '''
-    Metaclass for collecting lexing rules
-    '''
+class Lexer():
+    # These attributes may be defined in subclasses
+    tokens = set()
+    literals = set()
+    ignore = ''
+    reflags = 0
+    regex_module = re
+
+    _token_names = set()
+    _token_funcs = {}
+    _ignored_tokens = set()
+    _remapping = {}
+    _delete = {}
+    _remap = {}
+
+    # Internal attributes
+    __state_stack = None
+    __set_state = None
+
+    # COPIED FROM THE METACLASS
+
     @classmethod
     def __prepare__(meta, name, bases):
         d = LexerMetaDict()
@@ -179,25 +197,8 @@ class LexerMeta(type):
         cls._delete = attributes.delete
         cls._build()
         return cls
-
-class Lexer(metaclass=LexerMeta):
-    # These attributes may be defined in subclasses
-    tokens = set()
-    literals = set()
-    ignore = ''
-    reflags = 0
-    regex_module = re
-
-    _token_names = set()
-    _token_funcs = {}
-    _ignored_tokens = set()
-    _remapping = {}
-    _delete = {}
-    _remap = {}
-
-    # Internal attributes
-    __state_stack = None
-    __set_state = None
+    
+    # END COPIED FROM THE METACLASS
 
     @classmethod
     def _collect_rules(cls):
